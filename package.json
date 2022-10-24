@@ -13,7 +13,7 @@
     "discord-reply": "^0.1.2",
     "discord.js": "^12.5.3",
     "discord.js-slash-command": "^1.2.1",
-    "dotenv": "^16.0.2",
+    "dotenv": "^16.0.3",
     "mongoose": "^6.6.7"
   },
   "devDependencies": {
