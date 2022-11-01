@@ -77,6 +77,8 @@ client.on('message', async (msg) => {
 		await Question.find({keyWord:keyWordtext}).deleteOne()
 	}else if(msg.content.startsWith("!alldelete")){
 		await Question.deleteMany();
+	}else if(msg.content.startsWith("!help")){
+		msg.lineReplyNoMention("!add - !delete - !alldelete - !questions - !list - !help");
 	}else{
 		Question.findOne({keyWord:msg.content}, (err,data)=>{
 			if(data){
