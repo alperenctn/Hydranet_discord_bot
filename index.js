@@ -76,7 +76,7 @@ client.on('message', async (msg) => {
 		const keyWordtext = msg.content.slice(firstSpace+1)
 		await Question.find({keyWord:keyWordtext}).deleteOne()
 	}else if(msg.content.startsWith("!alldelete")){
-		Question.deleteMany();
+		await Question.deleteMany();
 	}else{
 		Question.findOne({keyWord:msg.content}, (err,data)=>{
 			if(data){
