@@ -8,7 +8,7 @@ const nodemon = require('nodemon')
 main().catch(err => console.log(err));
 
 async function main() {
-  const db = await mongoose.connect('mongodb+srv://hdx:hdx@hdx.jbxedff.mongodb.net/?retryWrites=true&w=majority');
+  const db = await mongoose.connect(process.env.mongo);
 }
 
 const q = new mongoose.Schema({
@@ -26,7 +26,7 @@ client.once('ready', () => {
 
 client.on('message', async (msg) => {
 
-	if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.name)) ){
+	if (msg.member.roles.cache.some(r=>["gainz","Admin", "Team", "Moderator"].includes(r.name)) ){
 	const firstSpace = msg.content.indexOf(" ")
 	const firstHyphen = msg.content.indexOf("-")
 	const secondHyphen = msg.content.indexOf("-",firstHyphen+1)
@@ -87,6 +87,8 @@ client.on('message', async (msg) => {
 			}
 		})
 	}
+	}else{
+		return;
 	}
 });
 client.login(process.env.token);
