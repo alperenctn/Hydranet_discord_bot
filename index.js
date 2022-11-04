@@ -26,8 +26,8 @@ client.once('ready', () => {
 
 client.on('message', async (msg) => {
 
-	if(message.member.roles.find(r => r.name === "Admin") || message.member.roles.find(r => r.name === "Team") ||
-	message.member.roles.find(r => r.name === "Moderator")){
+	if(msg.member.roles.find(r => r.name === "Admin") || msg.member.roles.find(r => r.name === "Team") ||
+	msg.member.roles.find(r => r.name === "Moderator")){
 	const firstSpace = msg.content.indexOf(" ")
 	const firstHyphen = msg.content.indexOf("-")
 	const secondHyphen = msg.content.indexOf("-",firstHyphen+1)
