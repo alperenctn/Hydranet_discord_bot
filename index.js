@@ -26,7 +26,8 @@ client.once('ready', () => {
 
 client.on('message', async (msg) => {
 
-	if (msg.member.roles.cache.some(r=>["gainz","Admin", "Team", "Moderator"].includes(r.name)) ){
+	if(message.member.roles.find(r => r.name === "Admin") || message.member.roles.find(r => r.name === "Team" ||
+	message.member.roles.find(r => r.name === "Moderator")){
 	const firstSpace = msg.content.indexOf(" ")
 	const firstHyphen = msg.content.indexOf("-")
 	const secondHyphen = msg.content.indexOf("-",firstHyphen+1)
