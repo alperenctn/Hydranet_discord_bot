@@ -25,7 +25,7 @@ client.once('ready', () => {
 });
 
 client.on('message', async (msg) => {
-	console.log(msg.member.roles)
+	
 	if(msg.member.roles){
 if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.name))){
 	const firstSpace = msg.content.indexOf(" ")
