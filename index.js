@@ -95,5 +95,5 @@ client.on('message', async (msg) => {
 	if(msg.content == "wen moon" || msg.content == "when moon"){
 		msg.lineReplyNoMention("soon")
 	}
-};
+});
 client.login(process.env.token);
