@@ -92,7 +92,7 @@ if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.nam
 	}
 });
 client.on('message', async (msg) => {
-	if(msg.content == "wen moon" || msg.content == "when moon" || msg.content == "moon){
+	if(msg.content == "wen moon" || msg.content == "when moon" || msg.content == "moon"){
 		msg.lineReplyNoMention("soon")
 	}
 });
