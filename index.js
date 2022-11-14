@@ -92,8 +92,10 @@ if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.nam
 	}
 });
 client.on('message', async (msg) => {
-	if(msg.content == "wen moon" || msg.content == "when moon" || msg.content == "moon"|| msg.content == "Moon"){
+	if(msg.content == "Wen moon" || msg.content == "wen moon" || msg.content == "when moon"|| msg.content == "When moon" || msg.content == "moon"|| msg.content == "Moon" ){
 		msg.lineReplyNoMention("soon")
+	}else if(msg.content == "soon" || msg.content == "Soon"){
+		msg.lineReplyNoMention("moon")
 	}
 });
 client.login(process.env.token);
