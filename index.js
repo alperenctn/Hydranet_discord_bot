@@ -87,7 +87,7 @@ if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.nam
 			}
 		})
 	}
-	}else{
+	}else if(msg.guild.channels.cache.find(channel => channel.name === "hdxinfo-bot")){
 		if(msg.content.startsWith("!list")){
 			const questions = await Question.find()
 			const q =[]
