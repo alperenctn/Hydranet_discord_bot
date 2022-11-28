@@ -25,7 +25,6 @@ client.once('ready', () => {
 });
 
 client.on('message', async (msg) => {
-	
 	if(msg.member.roles){
 if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.name))){
 	const firstSpace = msg.content.indexOf(" ")
@@ -88,7 +87,7 @@ if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.nam
 			}
 		})
 	}
-	}else{
+	}else if(msg.channel == "hdxinfo-bot"){
 		if(msg.content.startsWith("!list")){
 			const questions = await Question.find()
 			const q =[]
@@ -126,7 +125,6 @@ if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.nam
 				}
 			})
 		}
-
 	}
 	}
 });
