@@ -82,6 +82,7 @@ if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.nam
 	}else{
 		Question.findOne({keyWord:msg.content.toLowerCase()}, (err,data)=>{
 			if(data){
+				msg.channel.send(data.question)
 				msg.channel.send(data.answer)
 				msg.delete({timeout:5000})
 			}
@@ -120,6 +121,7 @@ if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.nam
 		}else{
 			Question.findOne({keyWord:msg.content.toLowerCase()}, (err,data)=>{
 				if(data){
+					msg.channel.send(data.question)
 					msg.channel.send(data.answer)
 					msg.delete({timeout:5000})
 				}
