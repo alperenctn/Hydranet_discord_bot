@@ -119,7 +119,7 @@ if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.nam
 		}else if(msg.content.startsWith("!help")){
 			msg.lineReplyNoMention("!add - !delete - !alldelete - !questions - !list - !help");
 		}else{
-			Question.findOne({keyWord:msg.content.toLowerCase()}, (err,data)=>{
+			Question.findOne({keyWord:(msg.content.charAt(0).toUpperCase() + msg.content.slice(1).toLowerCase()) ; }, (err,data)=>{
 				if(data){
 					msg.channel.send(data.question)
 					msg.channel.send(data.answer)
