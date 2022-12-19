@@ -4,7 +4,7 @@ require('discord-reply');
 const client = new Client();
 const mongoose = require('mongoose');
 const nodemon = require('nodemon')
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 const comma = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -102,9 +102,6 @@ const provider = new ethers.providers.AlchemyProvider( "arbitrum" , process.env.
 const _HdxToken = new ethers.Contract(ADDRESS,HDX_ABI,provider);
 const _ShdxToken = new ethers.Contract(SHDXADDRESS, SHDX_ABI,provider);
 
-	fetch('https://api.coingecko.com/api/v3/coins/hydranet/tickers')
-    .then( a => a.json())
-    .then( b => {setPrice(b.tickers[0].last.toString().substr(0,6))})
 
 // StakedHdx= BigNumber.from(StakedHdx).toString().slice(0,-9);
 // setD1(BigNumber.from(shdxAmount).toString().slice(0,-9));
@@ -116,9 +113,9 @@ const _ShdxToken = new ethers.Contract(SHDXADDRESS, SHDX_ABI,provider);
 
 client.on('message', async (msg) => {
 	if(msg.content == "!hdx" || msg.content == "!Hdx" || msg.content == "!HDX"  ){
-		var x = await fetch('https://api.coingecko.com/api/v3/coins/hydranet/tickers');
-		var y = await x.json();
-		var z = await y.tickers[0].last.toString().substr(0,6);
+		// var x = await fetch('https://api.coingecko.com/api/v3/coins/hydranet/tickers');
+		// var y = await x.json();
+		// var z = await y.tickers[0].last.toString().substr(0,6);
 
 		var TotalHdx = await _HdxToken.totalSupply();
 		var StakedHdx = await _HdxToken.balanceOf("0xd20cdf95a08acdf8aa360232caeda6e59a06951d")
@@ -128,8 +125,7 @@ client.on('message', async (msg) => {
 		"*  STAKE RATIO  =  "+ (BigNumber.from(StakedHdx).toString().slice(0,-9)/
 		BigNumber.from(TotalHdx).toString().slice(0,-9)*100).toString().slice(0,-12)+"%"+'\n'+ 
 		"*  INFLATION    =  7.5%"+'\n'+ 
-		"*  CURRENT APY  = " + " 9.4%" + 
-		"*  HDX PRICE  = " + z 
+		"*  CURRENT APY  = " + " 9.4%"
 		)
 		
 	}
