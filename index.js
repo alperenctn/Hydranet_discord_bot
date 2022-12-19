@@ -8,7 +8,7 @@ const nodemon = require('nodemon')
 main().catch(err => console.log(err));
 
 async function main() {
-  const db = await mongoose.connect('mongodb+srv://hdx:hdx@hdx.jbxedff.mongodb.net/?retryWrites=true&w=majority');
+  const db = await mongoose.connect(process.env.mongo);
 }
 
 const q = new mongoose.Schema({
