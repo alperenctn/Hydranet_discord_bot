@@ -12,7 +12,7 @@ const comma = (x) => {
 main().catch(err => console.log(err));
 
 async function main() {
-  const db = await mongoose.connect('mongodb+srv://hdx:hdx@hdx.jbxedff.mongodb.net/?retryWrites=true&w=majority');
+  const db = await mongoose.connect(process.env.mongo);
 }
 
 const q = new mongoose.Schema({
@@ -29,8 +29,8 @@ client.once('ready', () => {
 });
 
 client.on('message', async (msg) => {
-	if(msg.member.roles){
-if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.name))){
+
+	if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.name)) ){
 	const firstSpace = msg.content.indexOf(" ")
 	const firstHyphen = msg.content.indexOf("-")
 	const secondHyphen = msg.content.indexOf("-",firstHyphen+1)
@@ -80,63 +80,16 @@ if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.nam
 		const keyWordtext = msg.content.slice(firstSpace+1)
 		await Question.find({keyWord:keyWordtext}).deleteOne()
 	}else if(msg.content.startsWith("!alldelete")){
-		await Question.deleteMany();
-	}else if(msg.content.startsWith("!help")){
-		msg.lineReplyNoMention("!add - !delete - !alldelete - !questions - !list - !help");
+		Question.deleteMany();
 	}else{
-		Question.findOne({keyWord:msg.content}, (err,data)=>{
+		Question.findOne({keyWord:(msg.content.charAt(0).toUpperCase() + msg.content.slice(1).toLowerCase()) }, (err,data)=>{
 			if(data){
+				msg.channel.send(data.question)
 				msg.channel.send(data.answer)
 				msg.delete({timeout:5000})
 			}
 		})
 	}
-	}else if(msg.channel == "hdxinfo-bot"){
-		if(msg.content.startsWith("!list")){
-			const questions = await Question.find()
-			const q =[]
-			var y = 1;
-			questions.forEach((e)=>{
-				q.push(y+") "+e.keyWord+"---"+ e.question +"---"+ e.answer)
-			y++;
-			})
-			if(questions.length == 0){
-				msg.lineReplyNoMention("list is empty")
-			}else{
-				msg.lineReplyNoMention(q)
-			}
-		}
-		else if(msg.content.startsWith("!questions")){
-			const questionsdb = await Question.find()
-			const questions = []
-			var z = 1;
-			questionsdb.forEach((e)=>{
-			questions.push(z+") "+e.keyWord+"---"+ e.question)
-			z++;
-			})
-			if(questionsdb.length == 0){
-				msg.lineReplyNoMention("list is empty")
-			}else{
-				msg.lineReplyNoMention(questions)
-			}
-		}else if(msg.content.startsWith("!help")){
-			msg.lineReplyNoMention("!add - !delete - !alldelete - !questions - !list - !help");
-		}else{
-			Question.findOne({keyWord:msg.content}, (err,data)=>{
-				if(data){
-					msg.channel.send(data.answer)
-					msg.delete({timeout:5000})
-				}
-			})
-		}
-	}
-	}
-});
-
-client.on('message', async (msg) => {
-	if(msg.content == "Wen moon" || msg.content == "wen moon" || msg.content == "when moon" ||
-	 msg.content == "When moon" || msg.content == "moon"|| msg.content == "Moon" ){
-		msg.lineReplyNoMention("soon")
 	}
 });
 
@@ -186,3 +139,4 @@ client.on('message', async (msg) => {
 });
 
 client.login(process.env.token);
+
