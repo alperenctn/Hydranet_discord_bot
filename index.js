@@ -29,15 +29,14 @@ client.once('ready', () => {
 });
 
 client.on('message', async (msg) => {
-
-	if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.name)) ){
+	if(msg.member.roles){
+if (msg.member.roles.cache.some(r=>["Admin", "Team", "Moderator"].includes(r.name))){
 	const firstSpace = msg.content.indexOf(" ")
 	const firstHyphen = msg.content.indexOf("-")
 	const secondHyphen = msg.content.indexOf("-",firstHyphen+1)
 	const keyWordtext = msg.content.slice(firstSpace+1,firstHyphen)
 	const questiontext = msg.content.slice(firstHyphen+1,secondHyphen)
 	const answertext = msg.content.slice(secondHyphen+1,msg.content.length)
-
 	if(msg.content.startsWith("!add")){
 		question = new Question(
 			{
@@ -80,16 +79,63 @@ client.on('message', async (msg) => {
 		const keyWordtext = msg.content.slice(firstSpace+1)
 		await Question.find({keyWord:keyWordtext}).deleteOne()
 	}else if(msg.content.startsWith("!alldelete")){
-		Question.deleteMany();
+		await Question.deleteMany();
+	}else if(msg.content.startsWith("!help")){
+		msg.lineReplyNoMention("!add - !delete - !alldelete - !questions - !list - !help");
 	}else{
-		Question.findOne({keyWord:(msg.content.charAt(0).toUpperCase() + msg.content.slice(1).toLowerCase()) }, (err,data)=>{
+		Question.findOne({keyWord:msg.content}, (err,data)=>{
 			if(data){
-				msg.channel.send(data.question)
 				msg.channel.send(data.answer)
 				msg.delete({timeout:5000})
 			}
 		})
 	}
+	}else if(msg.channel.id == 1048293194770686092){
+		if(msg.content.startsWith("!list")){
+			const questions = await Question.find()
+			const q =[]
+			var y = 1;
+			questions.forEach((e)=>{
+				q.push(y+") "+e.keyWord+"---"+ e.question +"---"+ e.answer)
+			y++;
+			})
+			if(questions.length == 0){
+				msg.lineReplyNoMention("list is empty")
+			}else{
+				msg.lineReplyNoMention(q)
+			}
+		}
+		else if(msg.content.startsWith("!questions")){
+			const questionsdb = await Question.find()
+			const questions = []
+			var z = 1;
+			questionsdb.forEach((e)=>{
+			questions.push(z+") "+e.keyWord+"---"+ e.question)
+			z++;
+			})
+			if(questionsdb.length == 0){
+				msg.lineReplyNoMention("list is empty")
+			}else{
+				msg.lineReplyNoMention(questions)
+			}
+		}else if(msg.content.startsWith("!help")){
+			msg.lineReplyNoMention("!add - !delete - !alldelete - !questions - !list - !help");
+		}else{
+			Question.findOne({keyWord:msg.content}, (err,data)=>{
+				if(data){
+					msg.channel.send(data.answer)
+					msg.delete({timeout:5000})
+				}
+			})
+		}
+	}
+	}
+});
+
+client.on('message', async (msg) => {
+	if(msg.content == "Wen moon" || msg.content == "wen moon" || msg.content == "when moon" ||
+	 msg.content == "When moon" || msg.content == "moon"|| msg.content == "Moon" ){
+		msg.lineReplyNoMention("soon")
 	}
 });
 
