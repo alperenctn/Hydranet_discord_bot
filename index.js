@@ -4,7 +4,8 @@ require('discord-reply');
 const client = new Client();
 const mongoose = require('mongoose');
 const nodemon = require('nodemon')
-// import fetch from 'node-fetch';
+const fetch = require('node-fetch');
+
 const comma = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
