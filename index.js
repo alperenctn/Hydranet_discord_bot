@@ -178,8 +178,7 @@ client.on('message', async (msg) => {
 		"*  HDX SUPPLY  =  "+ comma(BigNumber.from(TotalHdx).toString().slice(0,-9))+'\n'+
 		"*  STAKED HDX  =  "+ comma(BigNumber.from(StakedHdx).toString().slice(0,-9))+'\n'+
 		"*  STAKE RATIO  =  "+ (BigNumber.from(StakedHdx).toString().slice(0,-9)/
-		BigNumber.from(TotalHdx).toString().slice(0,-9)*100).toString().slice(0,-12)+"%"+'\n'+ 
-		"*  INFLATION    =  7.5%"
+		BigNumber.from(TotalHdx).toString().slice(0,-9)*100).toString().slice(0,-12)+"%"
 		)
 		
 	}
