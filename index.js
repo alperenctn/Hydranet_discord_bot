@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits,PermissionsBitField } from 'discord.js';
+import  Client  from 'discord.js';
 require('discord-reply');
 const client = new Client();
 import mongoose  from 'mongoose';
