@@ -1,9 +1,8 @@
-const { Client, GatewayIntentBits,PermissionsBitField } = require('discord.js');
-require('dotenv').config()
+import { Client, GatewayIntentBits,PermissionsBitField } from 'discord.js';
 require('discord-reply');
 const client = new Client();
-const mongoose = require('mongoose');
-const nodemon = require('nodemon')
+import mongoose  from 'mongoose';
+import nodemon from'nodemon'
 import fetch from 'node-fetch';
 
 const comma = (x) => {
