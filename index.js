@@ -150,6 +150,11 @@ const provider = new ethers.providers.AlchemyProvider( "arbitrum" , process.env.
 const _HdxToken = new ethers.Contract(ADDRESS,HDX_ABI,provider);
 const _ShdxToken = new ethers.Contract(SHDXADDRESS, SHDX_ABI,provider);
 
+// const resPriceWb = await fetch('https://whitebit.com/api/v1/public/ticker?market=HDX_USDT');
+// const data1 = await resPriceWb.json();
+// const wbPric = await data1.result.last.toString().substr(0,6)
+// const wbPrice = await Number(wbPric)
+
 
 // StakedHdx= BigNumber.from(StakedHdx).toString().slice(0,-9);
 // setD1(BigNumber.from(shdxAmount).toString().slice(0,-9));
@@ -161,19 +166,20 @@ const _ShdxToken = new ethers.Contract(SHDXADDRESS, SHDX_ABI,provider);
 
 client.on('message', async (msg) => {
 	if(msg.content == "!hdx" || msg.content == "!Hdx" || msg.content == "!HDX"  ){
-		// var x = await fetch('https://api.coingecko.com/api/v3/coins/hydranet/tickers');
-		// var y = await x.json();
-		// var z = await y.tickers[0].last.toString().substr(0,6);
+		const resPriceWb = await fetch('https://whitebit.com/api/v1/public/ticker?market=HDX_USDT');
+		const data1 = await resPriceWb.json();
+		const wbPric = await data1.result.last.toString().substr(0,6)
+
 
 		var TotalHdx = await _HdxToken.totalSupply();
 		var StakedHdx = await _HdxToken.balanceOf("0xd20cdf95a08acdf8aa360232caeda6e59a06951d")
 		msg.lineReplyNoMention(
+		"*  HDX PRICE  =  "+wbPric+'\n'+
 		"*  HDX SUPPLY  =  "+ comma(BigNumber.from(TotalHdx).toString().slice(0,-9))+'\n'+
 		"*  STAKED HDX  =  "+ comma(BigNumber.from(StakedHdx).toString().slice(0,-9))+'\n'+
 		"*  STAKE RATIO  =  "+ (BigNumber.from(StakedHdx).toString().slice(0,-9)/
 		BigNumber.from(TotalHdx).toString().slice(0,-9)*100).toString().slice(0,-12)+"%"+'\n'+ 
-		"*  INFLATION    =  7.5%"+'\n'+ 
-		"*  CURRENT APY  = " + " 9.4%"
+		"*  INFLATION    =  7.5%"
 		)
 		
 	}
